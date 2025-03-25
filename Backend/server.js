@@ -9,7 +9,7 @@ import { connectDB } from "./config/db.js";
 const app = express();
 const port = process.env.PORT || 4000
 
-connectDB();
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({ credentials: true }));
@@ -18,6 +18,7 @@ app.use(cors({ credentials: true }));
 
 app.get("/", (req, res) => res.send("api working now"))
 
-app.listen(port, () => {
+app.listen(port, async() => {
+   await connectDB();
     console.log(`server running on port:${port}`)
 })
