@@ -8,9 +8,12 @@ import transporter from "../config/nodemailler.js";
 export const register = async (req, res) => {
     const { name, email, password } = req.body;
 
+    console.log("Received data:" )
+
     if (!name || !email || !password) {
         return res.json({ success: false, message: "Missing Detail" });
     }
+    
 
     try {
         const existingUser = await userModel.findOne({ email });

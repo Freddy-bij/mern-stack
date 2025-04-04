@@ -8,22 +8,22 @@ import authRouter from "./routes/authRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 
 const app = express();
+const port = process.env.PORT || 4000;
+connectDB();
+
+const allowerOrigins = ["http://localhost:5173"]
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ credentials: true }));
+ app.use(cors({ origin: allowerOrigins , credentials: true }));
 
 app.get("/", (req, res) => res.send("API working now"));
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 
-const port = process.env.PORT || 4000;
-
-const startServer = async () => {
-  await connectDB();
   app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
   });
-};
 
-startServer();
+
+
